@@ -15,7 +15,6 @@
 , doCheckDeclare ? true
 , doIndentLint ? true
 , doRelint ? true
-, options ? [ "--install-deps" ]
 }:
 let
   lintPackages =
@@ -62,13 +61,16 @@ let
 
     set -x
 
+    mkdir -p .makem
+
     # /usr/bin/env is unavailable in the sandboxed environment, so run
     # makem via a provided bash
     #
     # Also, makem requires getopt.
     PATH="${getopt}/bin:${aspell}/bin:$PATH" ${bash}/bin/bash \
       ${makem}/makem.sh -E "${emacsForLint}/bin/emacs" \
-      --no-compile ${lib.escapeShellArgs options} \
+      --no-compile \
+      --sandbox="$PWD/.makem/${emacs.version}" \
       ''${makem_args[@]} ${lib.escapeShellArgs makemRules}
   '';
 in {
