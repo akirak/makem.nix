@@ -46,18 +46,26 @@ let
     set -euo pipefail
 
     makem_args=()
-    for el in *.el
-    do
-      if [[ "$el" = *-test.el ]] \
-         || [[ "$el" = *-tests.el ]] \
-         || [[ "$el" = test.el ]] \
-         || [[ "$el" = tests.el ]]
-      then
-        continue
-      fi
-      makem_args+=(-f "$el")
-    done
-    
+    if [[ $# -gt 0 ]]
+    then
+      for file
+      do
+        makem_args+=(-f "$file")
+      done
+    else
+      for el in *.el
+      do
+        if [[ "$el" = *-test.el ]] \
+           || [[ "$el" = *-tests.el ]] \
+           || [[ "$el" = test.el ]] \
+           || [[ "$el" = tests.el ]]
+        then
+          continue
+        fi
+        makem_args+=(-f "$el")
+      done
+    fi
+
     # /usr/bin/env is unavailable in the sandboxed environment, so run
     # makem via a provided bash
     #
