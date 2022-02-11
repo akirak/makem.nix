@@ -1,0 +1,37 @@
+* makem.nix
+This repository is a Nix flake that contains Nix wrappers for [[https://github.com/alphapapa/makem.sh][makem.sh]].
+You can check an Emacs Lisp package easily before you publish it.
+** Prerequisites
+You need Nix (version 2.4 or later) with flakes enabled.
+** Usage
+*** Linting (without byte-compilation and testing)
+=lint= package run linters on elisp files in the current directory.
+It is also the default package of the flake, so you can omit the package name:
+
+#+begin_src sh
+  nix run github:akirak/makem.nix
+#+end_src
+
+The executable also accepts file names as arguments, so you can check individual files, e.g.
+
+#+begin_src sh
+  nix run github:akirak/makem.nix -- file1.el file2.el
+#+end_src
+*** Byte-compiling
+=compile-EMACS-VERSION= compiles elisp files in the current directory.
+
+#+begin_src sh
+  nix run github:akirak/makem.nix#compile-emacs-27-2
+#+end_src
+
+=EMACS-VERSION= is given by [[https://github.com/purcell/nix-emacs-ci][nix-emacs-ci]], and you can get the list of supported versions for your platform from =emacs-ci-versions= attribute of the flake:
+
+#+begin_src sh
+  nix run github:akirak/makem.nix#emacs-ci-versions.x86_64-linux
+#+end_src
+
+The suffix is your Nix operating system, which you can get with:
+
+#+begin_src sh
+  nix eval --expr builtins.currentSystem --impure
+#+end_src
