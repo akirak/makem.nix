@@ -56,7 +56,7 @@
           ];
         };
 
-        makeDrvs = pkgs.callPackage ./lib.nix {
+        makeDrvs = pkgs.callPackage ./lint.nix {
           emacs = pkgs.emacs-27-2;
           lockDir = ./lock;
           inventories = [
