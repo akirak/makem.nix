@@ -35,6 +35,8 @@
     , ...
     } @ inputs:
     let
+      inherit (nixpkgs) lib;
+
       systems = [
         "aarch64-darwin"
         "aarch64-linux"
@@ -71,12 +73,23 @@
         };
 
         defaultDrvs = makeDrvs { };
+
+        byteCompileDrvs = lib.pipe pkgs.emacs-ci-versions [
+          (map (name: {
+            name = "compile-${name}";
+            value = pkgs.callPackage ./compile.nix {
+              emacs = pkgs.${name};
+              makem = inputs.makem.outPath;
+            };
+          }))
+          builtins.listToAttrs
+        ];
       in
       rec {
-        packages = flake-utils.lib.flattenTree {
+        packages = flake-utils.lib.flattenTree ({
           inherit (defaultDrvs.emacsForLint.admin "lock") lock update;
           lint = defaultDrvs.wrapper;
-        };
+        } // byteCompileDrvs);
         defaultPackage = packages.lint;
       });
 }
