@@ -48,6 +48,13 @@ let
     makem_args=()
     for el in *.el
     do
+      if [[ "$el" = *-test.el ]] \
+         || [[ "$el" = *-tests.el ]] \
+         || [[ "$el" = test.el ]] \
+         || [[ "$el" = tests.el ]]
+      then
+        continue
+      fi
       makem_args+=(-f "$el")
     done
     
