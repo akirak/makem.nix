@@ -90,6 +90,14 @@
         packages = flake-utils.lib.flattenTree ({
           inherit (defaultDrvs.emacsForLint.admin "lock") lock update;
           inherit lint;
+          lint-basic = lint.override {
+            doCheckdoc = true;
+            doElsa = false;
+            doPackageLint = true;
+            doCheckDeclare = true;
+            doIndentLint = false;
+            doRelint = false;
+          };
         } // byteCompileDrvs);
         defaultPackage = packages.lint;
         inherit (pkgs) emacs-ci-versions;

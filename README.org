@@ -5,11 +5,17 @@ You can check an Emacs Lisp package easily before you publish it.
 You need Nix (version 2.4 or later) with flakes enabled.
 ** Usage
 *** Linting (without byte-compilation and testing)
-=lint= package run linters on elisp files in the current directory.
+=lint= package run all linters supported by makem..
 It is also the default package of the flake, so you can omit the package name:
 
 #+begin_src sh
   nix run github:akirak/makem.nix
+#+end_src
+
+On the other hand, =lint-basic= package only runs =check-declare=, =checkdoc=, and =package-lint=:
+
+#+begin_src sh
+  nix run github:akirak/makem.nix#lint-basic
 #+end_src
 *** Byte-compiling
 =compile-EMACS-VERSION= compiles elisp files in the current directory.
