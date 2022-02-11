@@ -91,5 +91,6 @@
           lint = defaultDrvs.wrapper;
         } // byteCompileDrvs);
         defaultPackage = packages.lint;
+        inherit (pkgs) emacs-ci-versions;
       });
 }
