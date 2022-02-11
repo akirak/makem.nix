@@ -67,6 +67,8 @@ let
       done
     fi
 
+    set -x
+
     # /usr/bin/env is unavailable in the sandboxed environment, so run
     # makem via a provided bash
     #
