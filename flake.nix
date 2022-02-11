@@ -73,6 +73,7 @@
         };
 
         defaultDrvs = makeDrvs { };
+        lint = lib.makeOverridable (args: (makeDrvs args).wrapper) { };
 
         byteCompileDrvs = lib.pipe pkgs.emacs-ci-versions [
           (map (name: {
@@ -88,7 +89,7 @@
       rec {
         packages = flake-utils.lib.flattenTree ({
           inherit (defaultDrvs.emacsForLint.admin "lock") lock update;
-          lint = defaultDrvs.wrapper;
+          inherit lint;
         } // byteCompileDrvs);
         defaultPackage = packages.lint;
         inherit (pkgs) emacs-ci-versions;
