@@ -61,8 +61,6 @@ let
 
     set -x
 
-    mkdir -p .makem
-
     # /usr/bin/env is unavailable in the sandboxed environment, so run
     # makem via a provided bash
     #
@@ -70,7 +68,7 @@ let
     PATH="${getopt}/bin:${aspell}/bin:$PATH" ${bash}/bin/bash \
       ${makem}/makem.sh -E "${emacsForLint}/bin/emacs" \
       --no-compile \
-      --sandbox="$PWD/.makem/${emacs.version}" \
+      --sandbox="$PWD/.makem" \
       ''${makem_args[@]} ${lib.escapeShellArgs makemRules}
   '';
 in {
