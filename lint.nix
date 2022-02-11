@@ -47,26 +47,17 @@ let
     set -euo pipefail
 
     makem_args=()
-    if [[ $# -gt 0 ]]
-    then
-      for file
-      do
-        makem_args+=(-f "$file")
-      done
-    else
-      for el in *.el
-      do
-        if [[ "$el" = *-test.el ]] \
-           || [[ "$el" = *-tests.el ]] \
-           || [[ "$el" = test.el ]] \
-           || [[ "$el" = tests.el ]] \
-           || [[ "$el" = .dir-locals.el ]]
-        then
-          continue
-        fi
-        makem_args+=(-f "$el")
-      done
-    fi
+    for el in *.el
+    do
+      if [[ "$el" = *-test.el ]] \
+         || [[ "$el" = *-tests.el ]] \
+         || [[ "$el" = test.el ]] \
+         || [[ "$el" = tests.el ]] \
+         || [[ "$el" = .dir-locals.el ]]
+      then
+        makem_args+=(--exclude "$el")
+      fi
+    done
 
     set -x
 
