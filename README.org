@@ -11,12 +11,6 @@ It is also the default package of the flake, so you can omit the package name:
 #+begin_src sh
   nix run github:akirak/makem.nix
 #+end_src
-
-The executable also accepts file names as arguments, so you can check individual files, e.g.
-
-#+begin_src sh
-  nix run github:akirak/makem.nix -- file1.el file2.el
-#+end_src
 *** Byte-compiling
 =compile-EMACS-VERSION= compiles elisp files in the current directory.
 
