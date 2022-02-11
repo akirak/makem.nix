@@ -2,6 +2,7 @@
 , getopt
 , bash
 , makem
+, aspell
 , writeShellScriptBin
 , emacsTwist
 , emacs
@@ -73,7 +74,7 @@ let
     # makem via a provided bash
     #
     # Also, makem requires getopt.
-    PATH="${getopt}/bin:$PATH" ${bash}/bin/bash \
+    PATH="${getopt}/bin:${aspell}/bin:$PATH" ${bash}/bin/bash \
       ${makem}/makem.sh -E "${emacsForLint}/bin/emacs" \
       --no-compile ''${makem_args[@]} ${lib.escapeShellArgs makemRules}
   '';
