@@ -58,7 +58,8 @@ let
         if [[ "$el" = *-test.el ]] \
            || [[ "$el" = *-tests.el ]] \
            || [[ "$el" = test.el ]] \
-           || [[ "$el" = tests.el ]]
+           || [[ "$el" = tests.el ]] \\
+           || [[ "$el" = .dir-locals.el ]]
         then
           continue
         fi
