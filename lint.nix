@@ -15,6 +15,7 @@
 , doCheckDeclare ? true
 , doIndentLint ? true
 , doRelint ? true
+, options ? [ "--install-deps" ]
 }:
 let
   lintPackages =
@@ -67,7 +68,8 @@ let
     # Also, makem requires getopt.
     PATH="${getopt}/bin:${aspell}/bin:$PATH" ${bash}/bin/bash \
       ${makem}/makem.sh -E "${emacsForLint}/bin/emacs" \
-      --no-compile ''${makem_args[@]} ${lib.escapeShellArgs makemRules}
+      --no-compile ${lib.escapeShellArgs options} \
+      ''${makem_args[@]} ${lib.escapeShellArgs makemRules}
   '';
 in {
   inherit emacsForLint wrapper;
