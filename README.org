@@ -1,4 +1,6 @@
 * makem.nix
+*Use [[https://github.com/emacs-twist/nomake][nomake]] instead.*
+
 This repository is a Nix flake that contains Nix wrappers for [[https://github.com/alphapapa/makem.sh][makem.sh]].
 You can check an Emacs Lisp package easily before you publish it.
 ** Prerequisites
